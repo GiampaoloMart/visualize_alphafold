@@ -9,23 +9,27 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DEFAULT_TIMEOUT=100 \
     MPLCONFIGDIR=/tmp/matplotlib
 
-# Install system dependencies, including procps for the 'ps' command
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     procps \
+    openjdk-11-jre-headless \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 RUN pip install --no-cache-dir \
-    jax==0.3.25 \
-    jaxlib==0.3.25 \
+    numpy==1.24.3 \
     matplotlib \
-    numpy \
-    joblib \
-    memory_profiler \
+    Pillow \
+    scipy \
     pandas \
     seaborn \
-    scikit-learn
+    scikit-learn \
+    joblib \
+    memory_profiler \
+    jaxlib==0.3.25 -f https://storage.googleapis.com/jax-releases/jax_releases.html \
+    jax==0.3.25 -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
 # Set up matplotlib configuration directory
 RUN mkdir -p $MPLCONFIGDIR && chmod 777 $MPLCONFIGDIR
@@ -33,5 +37,5 @@ RUN mkdir -p $MPLCONFIGDIR && chmod 777 $MPLCONFIGDIR
 # Set the working directory
 WORKDIR /app
 
-# The CMD instruction provides defaults for an executing container
+# Default command for the container
 CMD ["python"]
