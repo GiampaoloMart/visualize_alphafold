@@ -9,9 +9,10 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DEFAULT_TIMEOUT=100 \
     MPLCONFIGDIR=/tmp/matplotlib
 
-# Install system dependencies
+# Install system dependencies, including procps for the 'ps' command
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    procps \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
