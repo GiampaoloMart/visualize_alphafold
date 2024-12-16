@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Python dependencies
 RUN pip install --no-cache-dir \
-    jax \
-    jaxlib \
+    jax==0.3.25 \
+    jaxlib==0.3.25 \
     matplotlib \
     numpy \
     joblib \
